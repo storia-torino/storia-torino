@@ -14,7 +14,7 @@ abstract: >-
   Tre agenti conversazionali basati su una knowledge base di fonti verificate raccontano
   la deindustrializzazione di Torino a giovani tra 18 e 35 anni. Il repository contiene
   catalogo delle fonti, luoghi georeferenziati, personaggi e prompt versionati, strumenti
-  e script dell'esperimento randomizzato. Progetto sostenuto da Fondazione CRT (Bando 2025) e Banca d'Italia.
+  e script dell'esperimento randomizzato. Progetto del Centro di Ricerca e Documentazione Luigi Einaudi, con il sostegno di Fondazione CRT (Bando 2025) e Banca d'Italia; community partner Club TOsto, Global Shapers Community Turin, Confindustria Giovani Imprenditori.
 keywords:
   - deindustrializzazione
   - Torino
