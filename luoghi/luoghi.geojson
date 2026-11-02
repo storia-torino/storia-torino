@@ -1,0 +1,391 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.667116,
+     45.032436
+    ]
+   },
+   "properties": {
+    "id": "L01",
+    "nome": "Lingotto",
+    "categoria": "riconvertita",
+    "agenti": [
+     "G",
+     "F"
+    ],
+    "anno_chiave": 1982,
+    "testo_breve": "Storico stabilimento Fiat di via Nizza. Chiuso nel 1982; dopo il concorso del 1983-84 è riconvertito in centro polifunzionale su progetto di Renzo Piano.",
+    "fonti": [
+     {
+      "id": "S17",
+      "titolo": "RPBW – Lingotto",
+      "url": "https://www.rpbw.com/project/lingotto-factory-conversion"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.637067,
+     45.027043
+    ]
+   },
+   "properties": {
+    "id": "L02",
+    "nome": "Mirafiori",
+    "categoria": "fabbrica",
+    "agenti": [
+     "R",
+     "G"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "La fabbrica-simbolo della Fiat. Qui i 35 giorni di sciopero (11 settembre–16 ottobre 1980) e, nel gennaio 2011, il referendum sull'accordo: sì al 54%, tra gli operai con 9 voti di scarto.",
+    "fonti": [
+     {
+      "id": "R17",
+      "titolo": "I 35 giorni – FIRSTonline",
+      "url": "https://www.firstonline.info/?p=124961"
+     },
+     {
+      "id": "R18",
+      "titolo": "Referendum 2011 – PMI.it",
+      "url": "https://www.pmi.it/?p=196095"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.659651,
+     45.066686
+    ]
+   },
+   "properties": {
+    "id": "L03",
+    "nome": "OGR – Officine Grandi Riparazioni",
+    "categoria": "riconvertita",
+    "agenti": [
+     "F"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Ex officine ferroviarie. Acquistate da Fondazione CRT nel 2013, riaperte come centro di cultura e innovazione il 30 settembre 2017.",
+    "fonti": [
+     {
+      "id": "S18",
+      "titolo": "OGR Torino",
+      "url": "https://www.ogrtorino.it"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì (URL sito da verificare)",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.681452,
+     45.048151
+    ]
+   },
+   "properties": {
+    "id": "L04",
+    "nome": "Teatro Nuovo",
+    "categoria": "evento",
+    "agenti": [
+     "G"
+    ],
+    "anno_chiave": 1980,
+    "testo_breve": "14 ottobre 1980: i capi e quadri Fiat, convocati qui dal loro coordinamento, partono in corteo: è la «marcia dei quarantamila» che chiude i 35 giorni.",
+    "fonti": [
+     {
+      "id": "IlPost2020",
+      "titolo": "Il Post, marcia dei quarantamila",
+      "url": "https://www.ilpost.it/2020/10/14/marcia-dei-quarantamila/"
+     },
+     {
+      "id": "FIRST2020",
+      "titolo": "FIRSTonline, Accadde oggi (2020)",
+      "url": "https://www.firstonline.info/en/accadde-oggi-la-marcia-dei-40mila-della-fiat-40-anni-fa/"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026",
+    "dossier": "dossier/L04-marcia-40mila.json"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.68272,
+     45.067917
+    ]
+   },
+   "properties": {
+    "id": "L05",
+    "nome": "Piazza San Carlo",
+    "categoria": "evento",
+    "agenti": [
+     "R"
+    ],
+    "anno_chiave": 1980,
+    "testo_breve": "Durante i 35 giorni Enrico Berlinguer incontra gli operai ai cancelli di Mirafiori e poi parla in piazza San Carlo. La data dell'incontro varia tra le fonti (25 o 26 settembre).",
+    "fonti": [
+     {
+      "id": "Panorama",
+      "titolo": "Panorama – Mirafiori",
+      "url": "https://www.panorama.it/attualita/economia/chiusura-mirafiori-agnelli-torino-fiat"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì (date discordanti)",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.666686,
+     45.089722
+    ]
+   },
+   "properties": {
+    "id": "L06",
+    "nome": "Parco Dora",
+    "categoria": "riconvertita",
+    "agenti": [
+     "F"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Parco nato sulle ex aree industriali della Spina 3 lungo la Dora, tra cui l'area Michelin.",
+    "fonti": [
+     {
+      "id": "R13",
+      "titolo": "Postfordismo e trasformazione urbana (IRES 2016)",
+      "url": "https://iris.polito.it/retrieve/e384c42f-3e02-d4b2-e053-9f05fe0a1d67/testo%20completo.pdf"
+     }
+    ],
+    "immagini": [],
+    "verificato": "parziale",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.618614,
+     45.030436
+    ]
+   },
+   "properties": {
+    "id": "L07",
+    "nome": "Cittadella Politecnico – Mirafiori",
+    "categoria": "riconvertita",
+    "agenti": [
+     "F"
+    ],
+    "anno_chiave": 2011,
+    "testo_breve": "Dal 2011 il Politecnico porta in un'area dello stabilimento di Mirafiori la Cittadella del Design e della Mobilità.",
+    "fonti": [
+     {
+      "id": "R13",
+      "titolo": "Postfordismo e trasformazione urbana (IRES 2016)",
+      "url": "https://iris.polito.it/retrieve/e384c42f-3e02-d4b2-e053-9f05fe0a1d67/testo%20completo.pdf"
+     }
+    ],
+    "immagini": [],
+    "verificato": "parziale",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.674608,
+     45.076224
+    ]
+   },
+   "properties": {
+    "id": "L08",
+    "nome": "Polo del '900",
+    "categoria": "archivio",
+    "agenti": [
+     "R",
+     "G",
+     "F"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Sede di Fondazione Gramsci (fondo Fiom Mirafiori) e Istoreto. Il portale 9CentRo dà accesso ai fondi digitalizzati.",
+    "fonti": [
+     {
+      "id": "S05",
+      "titolo": "Fondazione Gramsci Torino",
+      "url": "http://www.gramscitorino.it"
+     },
+     {
+      "id": "S06",
+      "titolo": "9CentRo – Polo del '900",
+      "url": "https://archivi.polodel900.it/"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.679651,
+     45.045868
+    ]
+   },
+   "properties": {
+    "id": "L09",
+    "nome": "Centro Storico Fiat",
+    "categoria": "archivio",
+    "agenti": [
+     "G"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Archivio storico dell'azienda: inventari online del fondo Relazioni esterne 1955–1997.",
+    "fonti": [
+     {
+      "id": "S08",
+      "titolo": "Archivio Storico Fiat",
+      "url": "https://centrostoricofiat.com/en/archive/"
+     }
+    ],
+    "immagini": [],
+    "verificato": "sì",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.685685,
+     45.090671
+    ]
+   },
+   "properties": {
+    "id": "L10",
+    "nome": "Ex Incet",
+    "categoria": "riconvertita",
+    "agenti": [
+     "F"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Ex fabbrica a Barriera di Milano, oggi spazio di innovazione sociale (Open Incet).",
+    "fonti": [
+     {
+      "id": "S07",
+      "titolo": "Immagini del cambiamento",
+      "url": "http://www.immaginidelcambiamento.it"
+     }
+    ],
+    "immagini": [],
+    "verificato": "da verificare",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.682102,
+     45.093734
+    ]
+   },
+   "properties": {
+    "id": "L11",
+    "nome": "Docks Dora",
+    "categoria": "riconvertita",
+    "agenti": [
+     "F"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Ex magazzini a Barriera di Milano, oggi spazi per arte, musica e laboratori.",
+    "fonti": [
+     {
+      "id": "S07",
+      "titolo": "Immagini del cambiamento",
+      "url": "http://www.immaginidelcambiamento.it"
+     }
+    ],
+    "immagini": [],
+    "verificato": "da verificare",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.641307,
+     45.061102
+    ]
+   },
+   "properties": {
+    "id": "L12",
+    "nome": "Grattacielo Lancia",
+    "categoria": "riconvertita",
+    "agenti": [
+     "R",
+     "G"
+    ],
+    "anno_chiave": null,
+    "testo_breve": "Torre dell'area Lancia a Borgo San Paolo: dalla produzione automobilistica a uffici e residenze.",
+    "fonti": [
+     {
+      "id": "S07",
+      "titolo": "Immagini del cambiamento",
+      "url": "http://www.immaginidelcambiamento.it"
+     }
+    ],
+    "immagini": [],
+    "verificato": "da verificare",
+    "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"
+   }
+  }
+ ],
+ "metadata": {
+  "licenza": "ODbL 1.0 (coordinate derivate da OpenStreetMap)",
+  "coordinate": "© OpenStreetMap contributors, Nominatim, 2/11/2026",
+  "schema": "docs/schema-dati.md"
+ }
+}

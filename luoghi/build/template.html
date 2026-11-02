@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stor-IA di Torino — mappa prototipo v0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{--ink:#1f2328;--muted:#5d6670;--paper:#f6f3ee;--line:#d9d3c7;
+        --fabbrica:#b23a2e;--riconvertita:#2f7d6d;--evento:#c7781d;--archivio:#3b5b92;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+  .app{display:grid;grid-template-columns:340px 1fr;height:100vh}
+  aside{border-right:1px solid var(--line);overflow:auto;padding:18px 18px 24px;background:#fbfaf7}
+  h1{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:21px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px;line-height:1.45}
+  .grp{margin:14px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+  ul.list{list-style:none;padding:0;margin:8px 0 0}
+  ul.list li{padding:9px 8px;border-bottom:1px solid #ece7dd;cursor:pointer;font-size:14px;border-radius:6px}
+  ul.list li:hover{background:#f1ece2}
+  ul.list .meta{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  #map{height:100%;background:#eef0ea}
+  .leaflet-popup-content{font-family:"IBM Plex Sans",sans-serif;font-size:13.5px;line-height:1.45;margin:12px 14px}
+  .pp h3{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:17px;margin:0 0 4px}
+  .pp .tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .pp .src{margin-top:8px;font-size:12px}
+  .pp .src a{color:var(--archivio)}
+  .pp .ver{margin-top:6px;font-size:12px;padding:3px 7px;border-radius:4px;display:inline-block;background:#f3efe6}
+  .pp .ver.no{background:#fbe9e2;color:#8a2b1f}
+  .pp .img{margin-top:8px;border:1px dashed var(--line);border-radius:6px;padding:10px;font-size:12px;color:var(--muted);text-align:center}
+  .note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  .lbl{background:none;border:none;box-shadow:none;font-size:11px;color:#4d6b8a;font-style:italic;font-weight:500}
+  .lbl:before{display:none}
+  .pp .btn{margin-top:10px;display:block;width:100%;border:none;background:var(--ink);color:#fff;border-radius:6px;padding:8px;font-family:inherit;font-size:13px;cursor:pointer}
+  #dossier{position:fixed;top:0;right:0;height:100vh;width:min(520px,100vw);background:#fffdf9;border-left:1px solid var(--line);box-shadow:-12px 0 30px rgba(0,0,0,.08);transform:translateX(105%);transition:transform .25s ease;z-index:1000;overflow:auto;padding:22px 24px 40px}
+  #dossier.open{transform:none}
+  #dossier .close{position:absolute;top:14px;right:16px;border:none;background:none;font-size:22px;cursor:pointer;color:var(--muted)}
+  #dossier h2{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:20px;margin:0 30px 8px 0}
+  #dossier .sint{font-size:14px;line-height:1.5;margin:0 0 10px}
+  #dossier .warn{font-size:13px;background:#fdf3e1;border-left:3px solid var(--evento);padding:8px 10px;margin:0 0 14px;line-height:1.45}
+  #dossier h4{margin:18px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .item{border:1px solid #ece7dd;border-radius:8px;padding:10px 12px;margin-bottom:8px;background:#fff}
+  .item .t{font-weight:500;font-size:14px}
+  .item .t a{color:var(--ink)}
+  .item .f{font-size:12px;color:var(--muted);margin:2px 0 4px}
+  .item .n{font-size:13px;line-height:1.4}
+  .item .tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+  .pill{font-size:11px;padding:2px 7px;border-radius:999px;background:#f1ece2}
+  .pill.p-aziendale{background:#e3ebf6}.pill.p-sindacale{background:#f8e1dc}.pill.p-storiografica{background:#e2efe9}.pill.p-politica{background:#efe6f5}
+  @media (max-width:760px){.app{grid-template-columns:1fr;grid-template-rows:auto 60vh}aside{max-height:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>Stor-IA di Torino</h1>
+    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione /*VERSIONE*/. 12 luoghi collegati agli agenti e alle fonti del catalogo.</p>
+
+    <div class="grp">Agente</div>
+    <div class="chips" id="agenti"></div>
+
+    <div class="grp">Categoria</div>
+    <div class="chips" id="categorie"></div>
+
+    <div class="grp">Luoghi <span id="count"></span></div>
+    <ul class="list" id="lista"></ul>
+
+    <p class="note">Mappa © OpenStreetMap contributors. Coordinate da OSM Nominatim (ODbL). Dati e codice: <a href="https://github.com/storia-torino/storia-torino">repository del progetto</a>. Le foto entrano solo con la liberatoria (strato G).</p>
+  </aside>
+  <div id="map"></div>
+</div>
+<section id="dossier" aria-label="Dossier del luogo">
+  <button class="close" type="button" aria-label="Chiudi" onclick="closeDossier()">×</button>
+  <div id="dossier-body"></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const LUOGHI = /*LUOGHI*/;
+
+const COL = {fabbrica:"#b23a2e", riconvertita:"#2f7d6d", evento:"#c7781d", archivio:"#3b5b92"};
+const CAT_LBL = {fabbrica:"Fabbrica", riconvertita:"Riconvertita", evento:"Evento", archivio:"Archivio"};
+const AG = {R:"Riccardo", G:"Giovanni", F:"Fatima"};
+let fAg = null, fCat = null;
+
+const map = L.map("map", {zoomControl:true, attributionControl:true, minZoom:11, maxZoom:18})
+  .setView([45.065, 7.67], 13);
+map.attributionControl.setPrefix(false);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function popup(p){
+  const src = p.fonti.map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.id)} · ${esc(f.titolo)}</a>`).join("<br>");
+  const ok = p.verificato.startsWith("sì");
+  return `<div class="pp">
+    <div class="tag"><span class="dot" style="background:${COL[p.categoria]}"></span>${CAT_LBL[p.categoria]}${p.anno_chiave ? " · " + p.anno_chiave : ""} · ${p.id}</div>
+    <h3>${esc(p.nome)}</h3>
+    <div>${esc(p.testo_breve)}</div>
+    <div class="tag" style="margin-top:8px">Ne parla: ${p.agenti.map(a => AG[a]).join(", ")}</div>
+    <div class="img">Foto storica + foto di oggi<br>(in attesa di liberatoria)</div>
+    <div class="src"><b>Fonti</b><br>${src}</div>
+    <div class="ver ${ok ? "" : "no"}">Verifica: ${esc(p.verificato)}</div>
+    ${p.dossier ? `<button class="btn" type="button" onclick="openDossier('${p.id}')">Apri il dossier · ${p.dossier.materiali.length} materiali</button>` : ""}
+  </div>`;
+}
+
+const PERSP = {"aziendale/quadri":"p-aziendale","sindacale/operaia":"p-sindacale","storiografica":"p-storiografica","politica":"p-politica"};
+let dFilter = null, dId = null;
+function openDossier(id){ dId = id; dFilter = null; drawDossier(); document.getElementById("dossier").classList.add("open"); }
+function closeDossier(){ document.getElementById("dossier").classList.remove("open"); }
+function drawDossier(){
+  const p = LUOGHI.features.find(f => f.properties.id === dId).properties, d = p.dossier;
+  const persp = [...new Set(d.materiali.map(m => m.prospettiva))];
+  const tipi = [...new Set(d.materiali.map(m => m.tipo))];
+  let h = `<div class="tag" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">${esc(p.nome)} · ${p.id}</div>
+    <h2>${esc(d.titolo)}</h2><p class="sint">${esc(d.sintesi)}</p>`;
+  if (d.numeri_contesi) h += `<p class="warn"><b>Numeri contesi.</b> ${esc(d.numeri_contesi)}</p>`;
+  h += `<div class="chips" id="dchips"></div>`;
+  tipi.forEach(t => {
+    const items = d.materiali.filter(m => m.tipo === t && (!dFilter || m.prospettiva === dFilter));
+    if (!items.length) return;
+    h += `<h4>${esc(t)} (${items.length})</h4>`;
+    items.forEach(m => {
+      const title = m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titolo)} ↗</a>` : esc(m.titolo);
+      h += `<div class="item"><div class="t">${title}</div>
+        <div class="f">${esc(m.fonte)}${m.anno ? " · " + esc(m.anno) : ""}</div>
+        <div class="n">${esc(m.nota)}</div>
+        <div class="tags"><span class="pill ${PERSP[m.prospettiva] || ""}">${esc(m.prospettiva)}</span>
+          <span class="pill">${esc(m.accesso)}</span><span class="pill">verifica: ${esc(m.verifica)}</span></div></div>`;
+    });
+  });
+  document.getElementById("dossier-body").innerHTML = h;
+  const box = document.getElementById("dchips");
+  [[null, "Tutti i punti di vista"], ...persp.map(x => [x, x])].forEach(([k, lbl]) => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.textContent = lbl;
+    b.setAttribute("aria-pressed", String(dFilter === k));
+    b.onclick = () => { dFilter = k; drawDossier(); };
+    box.appendChild(b);
+  });
+}
+
+const markers = LUOGHI.features.map(f => {
+  const p = f.properties, [lon, lat] = f.geometry.coordinates;
+  const m = L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:2, fillColor:COL[p.categoria], fillOpacity:.95})
+    .bindPopup(popup(p), {maxWidth:300});
+  m.bindTooltip(p.nome, {direction:"top", offset:[0,-8]});
+  return {m, p};
+});
+
+function visible(p){return (!fAg || p.agenti.includes(fAg)) && (!fCat || p.categoria === fCat)}
+
+function render(){
+  const ul = document.getElementById("lista"); ul.innerHTML = "";
+  let n = 0;
+  markers.forEach(({m, p}) => {
+    if (visible(p)) {
+      m.addTo(map); n++;
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="dot" style="background:${COL[p.categoria]}"></span>${esc(p.nome)}<span class="meta">${CAT_LBL[p.categoria]} · ${p.agenti.map(a => AG[a]).join(", ")}</span>`;
+      li.onclick = () => { map.flyTo(m.getLatLng(), 16, {duration:.8}); m.openPopup(); };
+      ul.appendChild(li);
+    } else map.removeLayer(m);
+  });
+  document.getElementById("count").textContent = `(${n})`;
+}
+
+function chips(el, items, get, set){
+  const box = document.getElementById(el);
+  const all = [[null, "Tutti", null], ...items];
+  all.forEach(([k, lbl, col]) => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button";
+    b.innerHTML = (col ? `<span class="dot" style="background:${col}"></span>` : "") + lbl;
+    b.setAttribute("aria-pressed", String(get() === k));
+    b.onclick = () => { set(k); [...box.children].forEach((c, i) => c.setAttribute("aria-pressed", String(all[i][0] === k))); render(); };
+    box.appendChild(b);
+  });
+}
+chips("agenti", Object.entries(AG).map(([k, v]) => [k, v, null]), () => fAg, v => fAg = v);
+chips("categorie", Object.entries(CAT_LBL).map(([k, v]) => [k, v, COL[k]]), () => fCat, v => fCat = v);
+render();
+</script>
+</body>
+</html>

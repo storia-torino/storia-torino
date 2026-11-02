@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Metadati di un documento della knowledge base Stor-IA di Torino",
+  "type": "object",
+  "required": ["id", "titolo", "tipo_fonte", "scala", "periodo", "tema", "registro", "uso_previsto", "sensibilita", "attendibilita", "agenti"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[A-GSR][0-9]{2}$", "description": "ID del catalogo (A01…G11) o della sitografia (S01…, R01…)"},
+    "titolo": {"type": "string"},
+    "tipo_fonte": {"enum": ["saggio", "report", "testimonianza", "articolo", "video", "scheda luogo", "statistica", "timeline"]},
+    "scala": {"enum": ["città", "quartiere", "luogo", "persona", "tema"]},
+    "periodo": {"type": "array", "items": {"enum": ["boom", "crisi", "anni 80-90", "oggi", "transizione lunga"]}, "minItems": 1},
+    "tema": {"type": "array", "items": {"enum": ["lavoro", "casa", "scuola", "migrazione", "giovani", "identità", "impresa", "spazio pubblico", "cultura", "futuro"]}, "minItems": 1},
+    "registro": {"enum": ["storico", "sociologico", "narrativo", "giornalistico", "statistico"]},
+    "uso_previsto": {"type": "array", "items": {"enum": ["risposta fattuale", "racconto immersivo", "confronto passato-presente", "attivazione discussione"]}, "minItems": 1},
+    "sensibilita": {"enum": ["bassa", "media", "alta"], "description": "alta per povertà, disoccupazione, sofferenza, marginalità"},
+    "luogo": {"type": "array", "items": {"type": "string"}},
+    "attendibilita": {"enum": ["primaria", "secondaria", "giornalistica", "divulgativa"]},
+    "agenti": {"type": "array", "items": {"enum": ["Riccardo", "Giovanni", "Fatima", "Guida"]}, "minItems": 1},
+    "licenza": {"type": "string", "description": "Licenza o riferimento alla liberatoria (strato G); 'solo metadati' se il testo non è redistribuibile"}
+  }
+}

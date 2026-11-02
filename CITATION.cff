@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Se usi questo materiale, cita il progetto come indicato qui sotto."
+title: "Stor-IA di Torino: agenti conversazionali e fonti aperte sulla deindustrializzazione di Torino"
+type: software
+version: 0.1.0
+date-released: 2026-11-02
+authors:
+  - family-names: Caligaris
+    given-names: Maria
+    affiliation: "Università di Torino, Dipartimento di Economia e Statistica"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"   # da completare
+  # Aggiungere qui gli altri membri del gruppo (nome, cognome, affiliazione, ORCID)
+abstract: >-
+  Tre agenti conversazionali basati su una knowledge base di fonti verificate raccontano
+  la deindustrializzazione di Torino a giovani tra 18 e 35 anni. Il repository contiene
+  catalogo delle fonti, luoghi georeferenziati, personaggi e prompt versionati, strumenti
+  e script dell'esperimento randomizzato. Progetto sostenuto da Fondazione CRT (Bando 2025) e Banca d'Italia.
+keywords:
+  - deindustrializzazione
+  - Torino
+  - public history
+  - intelligenza artificiale
+  - agenti conversazionali
+  - esperimento randomizzato
+license: MIT
+repository-code: "https://github.com/storia-torino/storia-torino"   # da aggiornare dopo la creazione

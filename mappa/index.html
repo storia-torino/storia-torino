@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stor-IA di Torino — mappa prototipo v0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{--ink:#1f2328;--muted:#5d6670;--paper:#f6f3ee;--line:#d9d3c7;
+        --fabbrica:#b23a2e;--riconvertita:#2f7d6d;--evento:#c7781d;--archivio:#3b5b92;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+  .app{display:grid;grid-template-columns:340px 1fr;height:100vh}
+  aside{border-right:1px solid var(--line);overflow:auto;padding:18px 18px 24px;background:#fbfaf7}
+  h1{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:21px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px;line-height:1.45}
+  .grp{margin:14px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+  ul.list{list-style:none;padding:0;margin:8px 0 0}
+  ul.list li{padding:9px 8px;border-bottom:1px solid #ece7dd;cursor:pointer;font-size:14px;border-radius:6px}
+  ul.list li:hover{background:#f1ece2}
+  ul.list .meta{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  #map{height:100%;background:#eef0ea}
+  .leaflet-popup-content{font-family:"IBM Plex Sans",sans-serif;font-size:13.5px;line-height:1.45;margin:12px 14px}
+  .pp h3{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:17px;margin:0 0 4px}
+  .pp .tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .pp .src{margin-top:8px;font-size:12px}
+  .pp .src a{color:var(--archivio)}
+  .pp .ver{margin-top:6px;font-size:12px;padding:3px 7px;border-radius:4px;display:inline-block;background:#f3efe6}
+  .pp .ver.no{background:#fbe9e2;color:#8a2b1f}
+  .pp .img{margin-top:8px;border:1px dashed var(--line);border-radius:6px;padding:10px;font-size:12px;color:var(--muted);text-align:center}
+  .note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  .lbl{background:none;border:none;box-shadow:none;font-size:11px;color:#4d6b8a;font-style:italic;font-weight:500}
+  .lbl:before{display:none}
+  .pp .btn{margin-top:10px;display:block;width:100%;border:none;background:var(--ink);color:#fff;border-radius:6px;padding:8px;font-family:inherit;font-size:13px;cursor:pointer}
+  #dossier{position:fixed;top:0;right:0;height:100vh;width:min(520px,100vw);background:#fffdf9;border-left:1px solid var(--line);box-shadow:-12px 0 30px rgba(0,0,0,.08);transform:translateX(105%);transition:transform .25s ease;z-index:1000;overflow:auto;padding:22px 24px 40px}
+  #dossier.open{transform:none}
+  #dossier .close{position:absolute;top:14px;right:16px;border:none;background:none;font-size:22px;cursor:pointer;color:var(--muted)}
+  #dossier h2{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:20px;margin:0 30px 8px 0}
+  #dossier .sint{font-size:14px;line-height:1.5;margin:0 0 10px}
+  #dossier .warn{font-size:13px;background:#fdf3e1;border-left:3px solid var(--evento);padding:8px 10px;margin:0 0 14px;line-height:1.45}
+  #dossier h4{margin:18px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .item{border:1px solid #ece7dd;border-radius:8px;padding:10px 12px;margin-bottom:8px;background:#fff}
+  .item .t{font-weight:500;font-size:14px}
+  .item .t a{color:var(--ink)}
+  .item .f{font-size:12px;color:var(--muted);margin:2px 0 4px}
+  .item .n{font-size:13px;line-height:1.4}
+  .item .tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+  .pill{font-size:11px;padding:2px 7px;border-radius:999px;background:#f1ece2}
+  .pill.p-aziendale{background:#e3ebf6}.pill.p-sindacale{background:#f8e1dc}.pill.p-storiografica{background:#e2efe9}.pill.p-politica{background:#efe6f5}
+  @media (max-width:760px){.app{grid-template-columns:1fr;grid-template-rows:auto 60vh}aside{max-height:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>Stor-IA di Torino</h1>
+    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione v0.1.0. 12 luoghi collegati agli agenti e alle fonti del catalogo.</p>
+
+    <div class="grp">Agente</div>
+    <div class="chips" id="agenti"></div>
+
+    <div class="grp">Categoria</div>
+    <div class="chips" id="categorie"></div>
+
+    <div class="grp">Luoghi <span id="count"></span></div>
+    <ul class="list" id="lista"></ul>
+
+    <p class="note">Mappa © OpenStreetMap contributors. Coordinate da OSM Nominatim (ODbL). Dati e codice: <a href="https://github.com/storia-torino/storia-torino">repository del progetto</a>. Le foto entrano solo con la liberatoria (strato G).</p>
+  </aside>
+  <div id="map"></div>
+</div>
+<section id="dossier" aria-label="Dossier del luogo">
+  <button class="close" type="button" aria-label="Chiudi" onclick="closeDossier()">×</button>
+  <div id="dossier-body"></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const LUOGHI = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.667116, 45.032436]}, "properties": {"id": "L01", "nome": "Lingotto", "categoria": "riconvertita", "agenti": ["G", "F"], "anno_chiave": 1982, "testo_breve": "Storico stabilimento Fiat di via Nizza. Chiuso nel 1982; dopo il concorso del 1983-84 è riconvertito in centro polifunzionale su progetto di Renzo Piano.", "fonti": [{"id": "S17", "titolo": "RPBW – Lingotto", "url": "https://www.rpbw.com/project/lingotto-factory-conversion"}], "immagini": [], "verificato": "sì", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.637067, 45.027043]}, "properties": {"id": "L02", "nome": "Mirafiori", "categoria": "fabbrica", "agenti": ["R", "G"], "anno_chiave": null, "testo_breve": "La fabbrica-simbolo della Fiat. Qui i 35 giorni di sciopero (11 settembre–16 ottobre 1980) e, nel gennaio 2011, il referendum sull'accordo: sì al 54%, tra gli operai con 9 voti di scarto.", "fonti": [{"id": "R17", "titolo": "I 35 giorni – FIRSTonline", "url": "https://www.firstonline.info/?p=124961"}, {"id": "R18", "titolo": "Referendum 2011 – PMI.it", "url": "https://www.pmi.it/?p=196095"}], "immagini": [], "verificato": "sì", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.659651, 45.066686]}, "properties": {"id": "L03", "nome": "OGR – Officine Grandi Riparazioni", "categoria": "riconvertita", "agenti": ["F"], "anno_chiave": null, "testo_breve": "Ex officine ferroviarie. Acquistate da Fondazione CRT nel 2013, riaperte come centro di cultura e innovazione il 30 settembre 2017.", "fonti": [{"id": "S18", "titolo": "OGR Torino", "url": "https://www.ogrtorino.it"}], "immagini": [], "verificato": "sì (URL sito da verificare)", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.681452, 45.048151]}, "properties": {"id": "L04", "nome": "Teatro Nuovo", "categoria": "evento", "agenti": ["G"], "anno_chiave": 1980, "testo_breve": "14 ottobre 1980: i capi e quadri Fiat, convocati qui dal loro coordinamento, partono in corteo: è la «marcia dei quarantamila» che chiude i 35 giorni.", "fonti": [{"id": "IlPost2020", "titolo": "Il Post, marcia dei quarantamila", "url": "https://www.ilpost.it/2020/10/14/marcia-dei-quarantamila/"}, {"id": "FIRST2020", "titolo": "FIRSTonline, Accadde oggi (2020)", "url": "https://www.firstonline.info/en/accadde-oggi-la-marcia-dei-40mila-della-fiat-40-anni-fa/"}], "immagini": [], "verificato": "sì", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026", "dossier": {"luogo": "L04", "titolo": "La marcia dei quarantamila — 14 ottobre 1980", "sintesi": "I capi e quadri Fiat, convocati dal loro coordinamento al Teatro Nuovo, sfilano in corteo verso Municipio, Regione e Prefettura chiedendo la riapertura dei cancelli. Il giorno dopo i sindacati firmano l'accordo: si chiudono i 35 giorni.", "numeri_contesi": "Partecipanti: 40.000 secondo La Stampa, 12-15.000 secondo la questura (cronologia di Radio Onda Rossa, fonte di parte: verificare sui giornali dell'epoca).", "materiali": [{"tipo": "Fonte primaria", "prospettiva": "giornalistica", "titolo": "La Stampa, edizioni del 14-16 ottobre 1980", "fonte": "Archivio Storico La Stampa", "anno": 1980, "url": "http://www.archiviolastampa.it/", "nota": "Cronaca del giorno e prime pagine; cercare per data nell'archivio.", "accesso": "gratuito", "verifica": "da aprire"}, {"tipo": "Fonte primaria", "prospettiva": "sindacale/operaia", "titolo": "l'Unità, edizioni del 14-16 ottobre 1980", "fonte": "Archivio storico l'Unità", "anno": 1980, "url": "https://archivio.unita.news", "nota": "Lettura dal lato del PCI e del sindacato, da confrontare con La Stampa.", "accesso": "gratuito", "verifica": "da aprire"}, {"tipo": "Fonte primaria", "prospettiva": "sindacale/operaia", "titolo": "Mirafiori: accordi e lotte (archivio documentale)", "fonte": "mirafiori-accordielotte.org", "anno": null, "url": "https://www.mirafiori-accordielotte.org", "nota": "Archivio online di accordi, volantini e interviste su Mirafiori.", "accesso": "gratuito", "verifica": "sì"}, {"tipo": "Testimonianza", "prospettiva": "aziendale/quadri", "titolo": "Intervista a Carlo Callieri, ex direttore centrale Fiat", "fonte": "Intervista del 2002 (testata da verificare), PDF su mirafiori-accordielotte.org", "anno": 2002, "url": "https://www.mirafiori-accordielotte.org/wp-content/uploads/2012/10/2002-Callieri-INTERVISTE-DOPO-TRENTADUE-ANNI.pdf", "nota": "Parla per la prima volta del ruolo dell'azienda nell'organizzazione della marcia.", "accesso": "PDF", "verifica": "sì"}, {"tipo": "Testimonianza", "prospettiva": "aziendale/quadri", "titolo": "Cesare Annibaldi: «con i quarantamila è finito il Sessantotto»", "fonte": "Intervista a La Stampa, sintesi Blitz Quotidiano", "anno": "2010 c.", "url": "https://archivio.blitzquotidiano.it/economia/fiat-marcia-40-mila-annibaldi-592109", "nota": "L'ex capo delle relazioni industriali dice che la marcia fu appoggiata dai vertici aziendali.", "accesso": "open", "verifica": "sì (sintesi di seconda mano)"}, {"tipo": "Testimonianza", "prospettiva": "aziendale/quadri", "titolo": "Morte di Luigi Arisio, promotore della marcia", "fonte": "Quotidiano.net", "anno": 2020, "url": "https://www.quotidiano.net/cronaca/e-scomparso-a-94-anni-luigi-arisio-nel-1980-guido-la-marcia-dei-quarantamila-awi17pfu", "nota": "Arisio, tra i fondatori nel 1974 del coordinamento capi e quadri Fiat.", "accesso": "open", "verifica": "sì"}, {"tipo": "Testimonianza", "prospettiva": "politica", "titolo": "Fassino e Bertinotti rileggono la marcia", "fonte": "Interviste a La Stampa, sintesi Blitz Quotidiano", "anno": "2010 c.", "url": "https://archivio.blitzquotidiano.it/politica-italiana/marcia-40mila-bertinotti-pci-riformista-598447", "nota": "Due letture opposte da sinistra, in risposta ad Annibaldi.", "accesso": "open", "verifica": "sì (sintesi di seconda mano)"}, {"tipo": "Ricostruzione", "prospettiva": "giornalistica", "titolo": "Cosa fu la «marcia dei quarantamila»", "fonte": "Il Post", "anno": 2020, "url": "https://www.ilpost.it/2020/10/14/marcia-dei-quarantamila/", "nota": "Sintesi chiara per un pubblico giovane: buon punto di partenza.", "accesso": "open", "verifica": "sì"}, {"tipo": "Ricostruzione", "prospettiva": "aziendale/quadri", "titolo": "Accadde oggi: la marcia dei 40mila, 40 anni fa", "fonte": "FIRSTonline", "anno": 2020, "url": "https://www.firstonline.info/en/accadde-oggi-la-marcia-dei-40mila-della-fiat-40-anni-fa/", "nota": "Racconto di un testimone; descrive i capi che arrivano al Teatro Nuovo.", "accesso": "open", "verifica": "sì"}, {"tipo": "Ricostruzione", "prospettiva": "sindacale/operaia", "titolo": "Quarant'anni fa: una frattura insanabile tra lavoratori", "fonte": "il Fatto Quotidiano", "anno": 2020, "url": "https://www.ilfattoquotidiano.it/2020/10/14/fiat-quarantanni-fa-la-marcia-dei-quarantamila-una-frattura-insanabile-tra-lavoratori/5964220/", "nota": "Il corteo verso Municipio, Regione e Prefettura; lettura critica verso i vertici Fiat.", "accesso": "open", "verifica": "sì"}, {"tipo": "Ricostruzione", "prospettiva": "aziendale/quadri", "titolo": "Quei 40 mila che cambiarono l'Italia", "fonte": "Il Foglio", "anno": 2015, "url": "https://www.ilfoglio.it/politica/2015/10/14/news/quei-40-mila-che-cambiarono-litalia-88564/", "nota": "Lettura favorevole alla marcia, collegata al decreto di San Valentino del 1984.", "accesso": "open", "verifica": "sì"}, {"tipo": "Ricostruzione", "prospettiva": "giornalistica", "titolo": "1980 - I 40 mila in marcia. La nuova era Fiat", "fonte": "Avvenire", "anno": 2010, "url": "https://www.avvenire.it/economia/lavoro/1980-i-40-mila-in-marcia-la-nuova-era-fiat_6585", "nota": "Contesto: 61 licenziamenti del 1979, 14 mila esuberi annunciati, terrorismo.", "accesso": "open", "verifica": "sì"}, {"tipo": "Studio", "prospettiva": "storiografica", "titolo": "La gerarchia contestata: i capi Fiat dal dopoguerra alla marcia dei Quarantamila", "fonte": "L. Avellino, Studi storici, 2/2016, pp. 439-466", "anno": 2016, "url": "https://archive-ouverte.unige.ch/unige:182619", "nota": "Il saggio di riferimento sui capi Fiat: perfetto per costruire Giovanni.", "accesso": "open access", "verifica": "sì"}, {"tipo": "Studio", "prospettiva": "storiografica", "titolo": "La marcia dei quarantamila e la scomparsa della fabbrica", "fonte": "G. Girocchi, Politecnico di Torino (preprint AISU)", "anno": null, "url": "https://iris.polito.it/bitstream/11583/2993375/2/Girocchi_Giacomo_AISU_preprint.pdf", "nota": "Come i media hanno rappresentato la marcia, confrontato con l'immagine aziendale Fiat.", "accesso": "open", "verifica": "sì"}, {"tipo": "Studio", "prospettiva": "sindacale/operaia", "titolo": "40 anni fa la sconfitta operaia alla Fiat che pesa ancora oggi", "fonte": "M. Revelli, il manifesto, 15/10/2020", "anno": 2020, "url": "", "nota": "Lettura dal lato operaio; reperibile su il manifesto (accesso a pagamento).", "accesso": "a pagamento", "verifica": "B"}, {"tipo": "Immagini", "prospettiva": "giornalistica", "titolo": "Fotogalleria: 35 anni fa la marcia dei 40mila", "fonte": "Panorama (foto Olycom e Ansa)", "anno": 2015, "url": "https://www.panorama.it/attualita/economia/fiat-35-anni-fa-la-marcia-del-40mila", "nota": "Striscioni, cartelli rivolti al sindaco Novelli, cinema Smeraldo il 15/10. Diritti delle agenzie: solo link.", "accesso": "open (foto con diritti)", "verifica": "sì"}, {"tipo": "Video", "prospettiva": "giornalistica", "titolo": "Ossi di seppia, «La marcia dei 40mila»", "fonte": "Rai (serie Ossi di seppia, s. 2 ep. 2)", "anno": null, "url": "https://thetvdb.com/series/ossi-di-seppia/episodes/8768871", "nota": "Episodio breve per pubblico giovane; cercare su RaiPlay.", "accesso": "RaiPlay da verificare", "verifica": "scheda"}, {"tipo": "Video", "prospettiva": "sindacale/operaia", "titolo": "Non mi basta mai", "fonte": "G. Chiesa, documentario 78'", "anno": 1999, "url": "https://www.mymovies.it/film/1999/non-mi-basta-mai/", "nota": "Ex operai Fiat raccontano il 1980 da vent'anni dopo.", "accesso": "da reperire", "verifica": "sì"}]}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.68272, 45.067917]}, "properties": {"id": "L05", "nome": "Piazza San Carlo", "categoria": "evento", "agenti": ["R"], "anno_chiave": 1980, "testo_breve": "Durante i 35 giorni Enrico Berlinguer incontra gli operai ai cancelli di Mirafiori e poi parla in piazza San Carlo. La data dell'incontro varia tra le fonti (25 o 26 settembre).", "fonti": [{"id": "Panorama", "titolo": "Panorama – Mirafiori", "url": "https://www.panorama.it/attualita/economia/chiusura-mirafiori-agnelli-torino-fiat"}], "immagini": [], "verificato": "sì (date discordanti)", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.666686, 45.089722]}, "properties": {"id": "L06", "nome": "Parco Dora", "categoria": "riconvertita", "agenti": ["F"], "anno_chiave": null, "testo_breve": "Parco nato sulle ex aree industriali della Spina 3 lungo la Dora, tra cui l'area Michelin.", "fonti": [{"id": "R13", "titolo": "Postfordismo e trasformazione urbana (IRES 2016)", "url": "https://iris.polito.it/retrieve/e384c42f-3e02-d4b2-e053-9f05fe0a1d67/testo%20completo.pdf"}], "immagini": [], "verificato": "parziale", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.618614, 45.030436]}, "properties": {"id": "L07", "nome": "Cittadella Politecnico – Mirafiori", "categoria": "riconvertita", "agenti": ["F"], "anno_chiave": 2011, "testo_breve": "Dal 2011 il Politecnico porta in un'area dello stabilimento di Mirafiori la Cittadella del Design e della Mobilità.", "fonti": [{"id": "R13", "titolo": "Postfordismo e trasformazione urbana (IRES 2016)", "url": "https://iris.polito.it/retrieve/e384c42f-3e02-d4b2-e053-9f05fe0a1d67/testo%20completo.pdf"}], "immagini": [], "verificato": "parziale", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.674608, 45.076224]}, "properties": {"id": "L08", "nome": "Polo del '900", "categoria": "archivio", "agenti": ["R", "G", "F"], "anno_chiave": null, "testo_breve": "Sede di Fondazione Gramsci (fondo Fiom Mirafiori) e Istoreto. Il portale 9CentRo dà accesso ai fondi digitalizzati.", "fonti": [{"id": "S05", "titolo": "Fondazione Gramsci Torino", "url": "http://www.gramscitorino.it"}, {"id": "S06", "titolo": "9CentRo – Polo del '900", "url": "https://archivi.polodel900.it/"}], "immagini": [], "verificato": "sì", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.679651, 45.045868]}, "properties": {"id": "L09", "nome": "Centro Storico Fiat", "categoria": "archivio", "agenti": ["G"], "anno_chiave": null, "testo_breve": "Archivio storico dell'azienda: inventari online del fondo Relazioni esterne 1955–1997.", "fonti": [{"id": "S08", "titolo": "Archivio Storico Fiat", "url": "https://centrostoricofiat.com/en/archive/"}], "immagini": [], "verificato": "sì", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.685685, 45.090671]}, "properties": {"id": "L10", "nome": "Ex Incet", "categoria": "riconvertita", "agenti": ["F"], "anno_chiave": null, "testo_breve": "Ex fabbrica a Barriera di Milano, oggi spazio di innovazione sociale (Open Incet).", "fonti": [{"id": "S07", "titolo": "Immagini del cambiamento", "url": "http://www.immaginidelcambiamento.it"}], "immagini": [], "verificato": "da verificare", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.682102, 45.093734]}, "properties": {"id": "L11", "nome": "Docks Dora", "categoria": "riconvertita", "agenti": ["F"], "anno_chiave": null, "testo_breve": "Ex magazzini a Barriera di Milano, oggi spazi per arte, musica e laboratori.", "fonti": [{"id": "S07", "titolo": "Immagini del cambiamento", "url": "http://www.immaginidelcambiamento.it"}], "immagini": [], "verificato": "da verificare", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [7.641307, 45.061102]}, "properties": {"id": "L12", "nome": "Grattacielo Lancia", "categoria": "riconvertita", "agenti": ["R", "G"], "anno_chiave": null, "testo_breve": "Torre dell'area Lancia a Borgo San Paolo: dalla produzione automobilistica a uffici e residenze.", "fonti": [{"id": "S07", "titolo": "Immagini del cambiamento", "url": "http://www.immaginidelcambiamento.it"}], "immagini": [], "verificato": "da verificare", "coord_fonte": "OpenStreetMap Nominatim, 2/11/2026"}}], "metadata": {"licenza": "ODbL 1.0 (coordinate derivate da OpenStreetMap)", "coordinate": "© OpenStreetMap contributors, Nominatim, 2/11/2026", "schema": "docs/schema-dati.md"}};
+
+const COL = {fabbrica:"#b23a2e", riconvertita:"#2f7d6d", evento:"#c7781d", archivio:"#3b5b92"};
+const CAT_LBL = {fabbrica:"Fabbrica", riconvertita:"Riconvertita", evento:"Evento", archivio:"Archivio"};
+const AG = {R:"Riccardo", G:"Giovanni", F:"Fatima"};
+let fAg = null, fCat = null;
+
+const map = L.map("map", {zoomControl:true, attributionControl:true, minZoom:11, maxZoom:18})
+  .setView([45.065, 7.67], 13);
+map.attributionControl.setPrefix(false);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function popup(p){
+  const src = p.fonti.map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.id)} · ${esc(f.titolo)}</a>`).join("<br>");
+  const ok = p.verificato.startsWith("sì");
+  return `<div class="pp">
+    <div class="tag"><span class="dot" style="background:${COL[p.categoria]}"></span>${CAT_LBL[p.categoria]}${p.anno_chiave ? " · " + p.anno_chiave : ""} · ${p.id}</div>
+    <h3>${esc(p.nome)}</h3>
+    <div>${esc(p.testo_breve)}</div>
+    <div class="tag" style="margin-top:8px">Ne parla: ${p.agenti.map(a => AG[a]).join(", ")}</div>
+    <div class="img">Foto storica + foto di oggi<br>(in attesa di liberatoria)</div>
+    <div class="src"><b>Fonti</b><br>${src}</div>
+    <div class="ver ${ok ? "" : "no"}">Verifica: ${esc(p.verificato)}</div>
+    ${p.dossier ? `<button class="btn" type="button" onclick="openDossier('${p.id}')">Apri il dossier · ${p.dossier.materiali.length} materiali</button>` : ""}
+  </div>`;
+}
+
+const PERSP = {"aziendale/quadri":"p-aziendale","sindacale/operaia":"p-sindacale","storiografica":"p-storiografica","politica":"p-politica"};
+let dFilter = null, dId = null;
+function openDossier(id){ dId = id; dFilter = null; drawDossier(); document.getElementById("dossier").classList.add("open"); }
+function closeDossier(){ document.getElementById("dossier").classList.remove("open"); }
+function drawDossier(){
+  const p = LUOGHI.features.find(f => f.properties.id === dId).properties, d = p.dossier;
+  const persp = [...new Set(d.materiali.map(m => m.prospettiva))];
+  const tipi = [...new Set(d.materiali.map(m => m.tipo))];
+  let h = `<div class="tag" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">${esc(p.nome)} · ${p.id}</div>
+    <h2>${esc(d.titolo)}</h2><p class="sint">${esc(d.sintesi)}</p>`;
+  if (d.numeri_contesi) h += `<p class="warn"><b>Numeri contesi.</b> ${esc(d.numeri_contesi)}</p>`;
+  h += `<div class="chips" id="dchips"></div>`;
+  tipi.forEach(t => {
+    const items = d.materiali.filter(m => m.tipo === t && (!dFilter || m.prospettiva === dFilter));
+    if (!items.length) return;
+    h += `<h4>${esc(t)} (${items.length})</h4>`;
+    items.forEach(m => {
+      const title = m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.titolo)} ↗</a>` : esc(m.titolo);
+      h += `<div class="item"><div class="t">${title}</div>
+        <div class="f">${esc(m.fonte)}${m.anno ? " · " + esc(m.anno) : ""}</div>
+        <div class="n">${esc(m.nota)}</div>
+        <div class="tags"><span class="pill ${PERSP[m.prospettiva] || ""}">${esc(m.prospettiva)}</span>
+          <span class="pill">${esc(m.accesso)}</span><span class="pill">verifica: ${esc(m.verifica)}</span></div></div>`;
+    });
+  });
+  document.getElementById("dossier-body").innerHTML = h;
+  const box = document.getElementById("dchips");
+  [[null, "Tutti i punti di vista"], ...persp.map(x => [x, x])].forEach(([k, lbl]) => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.textContent = lbl;
+    b.setAttribute("aria-pressed", String(dFilter === k));
+    b.onclick = () => { dFilter = k; drawDossier(); };
+    box.appendChild(b);
+  });
+}
+
+const markers = LUOGHI.features.map(f => {
+  const p = f.properties, [lon, lat] = f.geometry.coordinates;
+  const m = L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:2, fillColor:COL[p.categoria], fillOpacity:.95})
+    .bindPopup(popup(p), {maxWidth:300});
+  m.bindTooltip(p.nome, {direction:"top", offset:[0,-8]});
+  return {m, p};
+});
+
+function visible(p){return (!fAg || p.agenti.includes(fAg)) && (!fCat || p.categoria === fCat)}
+
+function render(){
+  const ul = document.getElementById("lista"); ul.innerHTML = "";
+  let n = 0;
+  markers.forEach(({m, p}) => {
+    if (visible(p)) {
+      m.addTo(map); n++;
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="dot" style="background:${COL[p.categoria]}"></span>${esc(p.nome)}<span class="meta">${CAT_LBL[p.categoria]} · ${p.agenti.map(a => AG[a]).join(", ")}</span>`;
+      li.onclick = () => { map.flyTo(m.getLatLng(), 16, {duration:.8}); m.openPopup(); };
+      ul.appendChild(li);
+    } else map.removeLayer(m);
+  });
+  document.getElementById("count").textContent = `(${n})`;
+}
+
+function chips(el, items, get, set){
+  const box = document.getElementById(el);
+  const all = [[null, "Tutti", null], ...items];
+  all.forEach(([k, lbl, col]) => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button";
+    b.innerHTML = (col ? `<span class="dot" style="background:${col}"></span>` : "") + lbl;
+    b.setAttribute("aria-pressed", String(get() === k));
+    b.onclick = () => { set(k); [...box.children].forEach((c, i) => c.setAttribute("aria-pressed", String(all[i][0] === k))); render(); };
+    box.appendChild(b);
+  });
+}
+chips("agenti", Object.entries(AG).map(([k, v]) => [k, v, null]), () => fAg, v => fAg = v);
+chips("categorie", Object.entries(CAT_LBL).map(([k, v]) => [k, v, COL[k]]), () => fCat, v => fCat = v);
+render();
+</script>
+</body>
+</html>
