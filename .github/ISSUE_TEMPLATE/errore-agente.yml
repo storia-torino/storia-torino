@@ -1,0 +1,40 @@
+name: Errore di un agente
+description: Una risposta sbagliata, senza fonte o fuori tono
+labels: ["agenti", "errore"]
+body:
+  - type: markdown
+    attributes:
+      value: "**Non incollare dati personali** (nomi, email, numeri, luoghi di residenza), né tuoi né dei partecipanti."
+  - type: dropdown
+    id: agente
+    attributes:
+      label: Agente
+      options: [Riccardo, Giovanni, Fatima, Guida]
+    validations: {required: true}
+  - type: input
+    id: versione
+    attributes: {label: Versione degli agenti (es. v0.9.0)}
+  - type: textarea
+    id: domanda
+    attributes: {label: Domanda}
+    validations: {required: true}
+  - type: textarea
+    id: risposta
+    attributes: {label: Risposta dell'agente}
+    validations: {required: true}
+  - type: checkboxes
+    id: regole
+    attributes:
+      label: Quale regola viola?
+      options:
+        - {label: "1 Non si presenta come IA"}
+        - {label: "2 Fatto senza fonte o citazione inventata"}
+        - {label: "3 Non segnala fonti discordanti"}
+        - {label: "4 Esce dai propri confini"}
+        - {label: "5 Un solo punto di vista su un tema conteso"}
+        - {label: "6 Troppo lunga / non rilancia"}
+        - {label: "7 Sicurezza o dati personali"}
+        - {label: "8 Lingua non accessibile"}
+  - type: textarea
+    id: corretta
+    attributes: {label: Come dovrebbe rispondere (facoltativo, con fonte)}

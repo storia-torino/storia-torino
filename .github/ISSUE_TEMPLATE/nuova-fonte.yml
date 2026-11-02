@@ -1,0 +1,33 @@
+name: Nuova fonte
+description: Proponi un archivio, libro, articolo o video per la knowledge base
+labels: ["fonte"]
+body:
+  - type: input
+    id: titolo
+    attributes: {label: Titolo}
+    validations: {required: true}
+  - type: input
+    id: autore
+    attributes: {label: Autore o ente, e anno}
+  - type: input
+    id: url
+    attributes: {label: Link (o riferimento bibliografico completo)}
+    validations: {required: true}
+  - type: dropdown
+    id: strato
+    attributes:
+      label: Strato della KB
+      options: ["A Quadro", "B Territorio", "C Testimonianze", "D Attivazione", "E Dati", "F Giovani oggi", "G Metodo"]
+  - type: checkboxes
+    id: agenti
+    attributes:
+      label: Utile per
+      options: [{label: Riccardo}, {label: Giovanni}, {label: Fatima}, {label: Guida}]
+  - type: textarea
+    id: perche
+    attributes: {label: Cosa aggiunge (due righe)}
+  - type: dropdown
+    id: licenza
+    attributes:
+      label: Accesso / licenza
+      options: ["Open access / licenza aperta", "Consultabile ma con diritti", "A pagamento", "Non so"]

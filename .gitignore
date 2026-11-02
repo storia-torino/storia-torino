@@ -1,0 +1,31 @@
+# --- MAI nel repository: dati riservati dell'esperimento ---
+analisi/privato/
+**/seme.txt
+**/lista_randomizzazione*.csv
+dati/
+dati_partecipanti/
+*.consensi.*
+**/chat_log*
+**/risposte_questionari*
+
+# --- Segreti e configurazioni locali ---
+.env
+.env.*
+!.env.example
+*.key
+secrets*
+
+# --- Indice della KB costruito da testi di terzi ---
+app/indice/
+app/vectorstore/
+kb/privato/
+
+# --- Python / R / sistema ---
+__pycache__/
+*.pyc
+.venv/
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,206 @@
+{
+ "luogo": "L04",
+ "titolo": "La marcia dei quarantamila — 14 ottobre 1980",
+ "sintesi": "I capi e quadri Fiat, convocati dal loro coordinamento al Teatro Nuovo, sfilano in corteo verso Municipio, Regione e Prefettura chiedendo la riapertura dei cancelli. Il giorno dopo i sindacati firmano l'accordo: si chiudono i 35 giorni.",
+ "numeri_contesi": "Partecipanti: 40.000 secondo La Stampa, 12-15.000 secondo la questura (cronologia di Radio Onda Rossa, fonte di parte: verificare sui giornali dell'epoca).",
+ "materiali": [
+  {
+   "tipo": "Fonte primaria",
+   "prospettiva": "giornalistica",
+   "titolo": "La Stampa, edizioni del 14-16 ottobre 1980",
+   "fonte": "Archivio Storico La Stampa",
+   "anno": 1980,
+   "url": "http://www.archiviolastampa.it/",
+   "nota": "Cronaca del giorno e prime pagine; cercare per data nell'archivio.",
+   "accesso": "gratuito",
+   "verifica": "da aprire"
+  },
+  {
+   "tipo": "Fonte primaria",
+   "prospettiva": "sindacale/operaia",
+   "titolo": "l'Unità, edizioni del 14-16 ottobre 1980",
+   "fonte": "Archivio storico l'Unità",
+   "anno": 1980,
+   "url": "https://archivio.unita.news",
+   "nota": "Lettura dal lato del PCI e del sindacato, da confrontare con La Stampa.",
+   "accesso": "gratuito",
+   "verifica": "da aprire"
+  },
+  {
+   "tipo": "Fonte primaria",
+   "prospettiva": "sindacale/operaia",
+   "titolo": "Mirafiori: accordi e lotte (archivio documentale)",
+   "fonte": "mirafiori-accordielotte.org",
+   "anno": null,
+   "url": "https://www.mirafiori-accordielotte.org",
+   "nota": "Archivio online di accordi, volantini e interviste su Mirafiori.",
+   "accesso": "gratuito",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Testimonianza",
+   "prospettiva": "aziendale/quadri",
+   "titolo": "Intervista a Carlo Callieri, ex direttore centrale Fiat",
+   "fonte": "Intervista del 2002 (testata da verificare), PDF su mirafiori-accordielotte.org",
+   "anno": 2002,
+   "url": "https://www.mirafiori-accordielotte.org/wp-content/uploads/2012/10/2002-Callieri-INTERVISTE-DOPO-TRENTADUE-ANNI.pdf",
+   "nota": "Parla per la prima volta del ruolo dell'azienda nell'organizzazione della marcia.",
+   "accesso": "PDF",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Testimonianza",
+   "prospettiva": "aziendale/quadri",
+   "titolo": "Cesare Annibaldi: «con i quarantamila è finito il Sessantotto»",
+   "fonte": "Intervista a La Stampa, sintesi Blitz Quotidiano",
+   "anno": "2010 c.",
+   "url": "https://archivio.blitzquotidiano.it/economia/fiat-marcia-40-mila-annibaldi-592109",
+   "nota": "L'ex capo delle relazioni industriali dice che la marcia fu appoggiata dai vertici aziendali.",
+   "accesso": "open",
+   "verifica": "sì (sintesi di seconda mano)"
+  },
+  {
+   "tipo": "Testimonianza",
+   "prospettiva": "aziendale/quadri",
+   "titolo": "Morte di Luigi Arisio, promotore della marcia",
+   "fonte": "Quotidiano.net",
+   "anno": 2020,
+   "url": "https://www.quotidiano.net/cronaca/e-scomparso-a-94-anni-luigi-arisio-nel-1980-guido-la-marcia-dei-quarantamila-awi17pfu",
+   "nota": "Arisio, tra i fondatori nel 1974 del coordinamento capi e quadri Fiat.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Testimonianza",
+   "prospettiva": "politica",
+   "titolo": "Fassino e Bertinotti rileggono la marcia",
+   "fonte": "Interviste a La Stampa, sintesi Blitz Quotidiano",
+   "anno": "2010 c.",
+   "url": "https://archivio.blitzquotidiano.it/politica-italiana/marcia-40mila-bertinotti-pci-riformista-598447",
+   "nota": "Due letture opposte da sinistra, in risposta ad Annibaldi.",
+   "accesso": "open",
+   "verifica": "sì (sintesi di seconda mano)"
+  },
+  {
+   "tipo": "Ricostruzione",
+   "prospettiva": "giornalistica",
+   "titolo": "Cosa fu la «marcia dei quarantamila»",
+   "fonte": "Il Post",
+   "anno": 2020,
+   "url": "https://www.ilpost.it/2020/10/14/marcia-dei-quarantamila/",
+   "nota": "Sintesi chiara per un pubblico giovane: buon punto di partenza.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Ricostruzione",
+   "prospettiva": "aziendale/quadri",
+   "titolo": "Accadde oggi: la marcia dei 40mila, 40 anni fa",
+   "fonte": "FIRSTonline",
+   "anno": 2020,
+   "url": "https://www.firstonline.info/en/accadde-oggi-la-marcia-dei-40mila-della-fiat-40-anni-fa/",
+   "nota": "Racconto di un testimone; descrive i capi che arrivano al Teatro Nuovo.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Ricostruzione",
+   "prospettiva": "sindacale/operaia",
+   "titolo": "Quarant'anni fa: una frattura insanabile tra lavoratori",
+   "fonte": "il Fatto Quotidiano",
+   "anno": 2020,
+   "url": "https://www.ilfattoquotidiano.it/2020/10/14/fiat-quarantanni-fa-la-marcia-dei-quarantamila-una-frattura-insanabile-tra-lavoratori/5964220/",
+   "nota": "Il corteo verso Municipio, Regione e Prefettura; lettura critica verso i vertici Fiat.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Ricostruzione",
+   "prospettiva": "aziendale/quadri",
+   "titolo": "Quei 40 mila che cambiarono l'Italia",
+   "fonte": "Il Foglio",
+   "anno": 2015,
+   "url": "https://www.ilfoglio.it/politica/2015/10/14/news/quei-40-mila-che-cambiarono-litalia-88564/",
+   "nota": "Lettura favorevole alla marcia, collegata al decreto di San Valentino del 1984.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Ricostruzione",
+   "prospettiva": "giornalistica",
+   "titolo": "1980 - I 40 mila in marcia. La nuova era Fiat",
+   "fonte": "Avvenire",
+   "anno": 2010,
+   "url": "https://www.avvenire.it/economia/lavoro/1980-i-40-mila-in-marcia-la-nuova-era-fiat_6585",
+   "nota": "Contesto: 61 licenziamenti del 1979, 14 mila esuberi annunciati, terrorismo.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Studio",
+   "prospettiva": "storiografica",
+   "titolo": "La gerarchia contestata: i capi Fiat dal dopoguerra alla marcia dei Quarantamila",
+   "fonte": "L. Avellino, Studi storici, 2/2016, pp. 439-466",
+   "anno": 2016,
+   "url": "https://archive-ouverte.unige.ch/unige:182619",
+   "nota": "Il saggio di riferimento sui capi Fiat: perfetto per costruire Giovanni.",
+   "accesso": "open access",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Studio",
+   "prospettiva": "storiografica",
+   "titolo": "La marcia dei quarantamila e la scomparsa della fabbrica",
+   "fonte": "G. Girocchi, Politecnico di Torino (preprint AISU)",
+   "anno": null,
+   "url": "https://iris.polito.it/bitstream/11583/2993375/2/Girocchi_Giacomo_AISU_preprint.pdf",
+   "nota": "Come i media hanno rappresentato la marcia, confrontato con l'immagine aziendale Fiat.",
+   "accesso": "open",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Studio",
+   "prospettiva": "sindacale/operaia",
+   "titolo": "40 anni fa la sconfitta operaia alla Fiat che pesa ancora oggi",
+   "fonte": "M. Revelli, il manifesto, 15/10/2020",
+   "anno": 2020,
+   "url": "",
+   "nota": "Lettura dal lato operaio; reperibile su il manifesto (accesso a pagamento).",
+   "accesso": "a pagamento",
+   "verifica": "B"
+  },
+  {
+   "tipo": "Immagini",
+   "prospettiva": "giornalistica",
+   "titolo": "Fotogalleria: 35 anni fa la marcia dei 40mila",
+   "fonte": "Panorama (foto Olycom e Ansa)",
+   "anno": 2015,
+   "url": "https://www.panorama.it/attualita/economia/fiat-35-anni-fa-la-marcia-del-40mila",
+   "nota": "Striscioni, cartelli rivolti al sindaco Novelli, cinema Smeraldo il 15/10. Diritti delle agenzie: solo link.",
+   "accesso": "open (foto con diritti)",
+   "verifica": "sì"
+  },
+  {
+   "tipo": "Video",
+   "prospettiva": "giornalistica",
+   "titolo": "Ossi di seppia, «La marcia dei 40mila»",
+   "fonte": "Rai (serie Ossi di seppia, s. 2 ep. 2)",
+   "anno": null,
+   "url": "https://thetvdb.com/series/ossi-di-seppia/episodes/8768871",
+   "nota": "Episodio breve per pubblico giovane; cercare su RaiPlay.",
+   "accesso": "RaiPlay da verificare",
+   "verifica": "scheda"
+  },
+  {
+   "tipo": "Video",
+   "prospettiva": "sindacale/operaia",
+   "titolo": "Non mi basta mai",
+   "fonte": "G. Chiesa, documentario 78'",
+   "anno": 1999,
+   "url": "https://www.mymovies.it/film/1999/non-mi-basta-mai/",
+   "nota": "Ex operai Fiat raccontano il 1980 da vent'anni dopo.",
+   "accesso": "da reperire",
+   "verifica": "sì"
+  }
+ ]
+}

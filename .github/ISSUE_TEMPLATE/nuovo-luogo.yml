@@ -1,0 +1,25 @@
+name: Nuovo luogo
+description: Proponi un luogo di Torino per la mappa
+labels: ["luoghi"]
+body:
+  - type: input
+    id: nome
+    attributes: {label: Nome del luogo}
+    validations: {required: true}
+  - type: input
+    id: indirizzo
+    attributes: {label: Indirizzo o coordinate (lat, lon)}
+    validations: {required: true}
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Categoria
+      options: [fabbrica, riconvertita, evento, archivio]
+  - type: textarea
+    id: testo
+    attributes: {label: "Cosa è successo qui (max 60 parole)"}
+    validations: {required: true}
+  - type: textarea
+    id: fonti
+    attributes: {label: Fonti (link o riferimenti completi)}
+    validations: {required: true}
