@@ -2,7 +2,8 @@
 
 Tre agenti conversazionali, **Riccardo**, **Giovanni** e **Fatima**, raccontano a ragazze e ragazzi tra i 18 e i 35 anni la deindustrializzazione di Torino: la fabbrica, la sua crisi, le trasformazioni della città. Ogni risposta mostra le fonti da cui viene. Il progetto misura con un esperimento randomizzato se questo modo di raccontare la storia aumenta conoscenza e coinvolgimento rispetto ai materiali curati dagli enti.
 
-> Progetto sostenuto da Fondazione CRT (Bando 2025) e Banca d'Italia, su Torino industriale e post-industriale. Partner: [*da completare*].
+> Un progetto del **Centro di Ricerca e Documentazione Luigi Einaudi**, con il sostegno di **Fondazione CRT** (Bando 2025) e **Banca d'Italia**, su Torino industriale e post-industriale.
+> Community partner: **Club TOsto**, **Global Shapers Community Turin**, **Confindustria Giovani Imprenditori**.
 > Stato: **in sviluppo**, sperimentazione tra il 24 novembre e il 3 dicembre 2026.
 
 ## Cosa trovi qui

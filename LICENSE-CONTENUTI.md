@@ -13,6 +13,10 @@ Il repository contiene materiali di natura diversa, con licenze diverse.
 
 Titoli, link e descrizioni brevi nei cataloghi e nei dossier rimandano a opere di terzi (articoli, libri, fotografie, video), che **restano dei rispettivi titolari** e non sono redistribuite in questo repository. Gli agenti riproducono materiali di terzi solo con una liberatoria scritta; in mancanza, citano la fonte e danno il link.
 
+## Marchi e loghi
+
+I loghi del Centro Einaudi, di Fondazione CRT, di Banca d'Italia e dei community partner sono marchi dei rispettivi titolari: non sono coperti dalle licenze di questo repository e si usano solo per indicare la partecipazione al progetto.
+
 ## Da confermare
 
 Prima della release v1.0.0 vanno verificate con l'ente titolare del progetto e con Fondazione CRT eventuali clausole sulla proprietà intellettuale dei risultati.
