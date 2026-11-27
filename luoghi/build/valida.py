@@ -2,6 +2,7 @@
 
 - ogni luogo ha i campi obbligatori, un ID unico L00 (o L000) e coordinate dentro l'area di Torino
 - ogni fonte citata ha un URL o è segnata come da verificare
+- ogni immagine ha URL https, didascalia, autore, licenza e fonte; se la licenza non è aperta serve id_liberatoria
 - ogni dossier referenziato esiste ed è JSON valido
 - i CSV del catalogo hanno ID unici
 Uso: python luoghi/build/valida.py
@@ -18,6 +19,8 @@ errori = []
 OBBLIGATORI = ["id", "nome", "categoria", "agenti", "testo_breve", "fonti", "verificato"]
 CATEGORIE = {"fabbrica", "riconvertita", "evento", "archivio"}
 BBOX = (7.50, 44.95, 7.85, 45.20)  # lon_min, lat_min, lon_max, lat_max (Torino e cintura)
+# Licenze che permettono di mostrare la foto sul sito senza liberatoria, con attribuzione
+LICENZE_APERTE = ("cc by ", "cc by-sa ", "cc0", "public domain", "pubblico dominio")
 
 fc = json.loads((ROOT / "luoghi" / "luoghi.geojson").read_text(encoding="utf-8"))
 visti = set()
@@ -37,6 +40,17 @@ for f in fc["features"]:
     lon, lat = f["geometry"]["coordinates"][:2]
     if not (BBOX[0] <= lon <= BBOX[2] and BBOX[1] <= lat <= BBOX[3]):
         errori.append(f"{pid}: coordinate fuori da Torino ({lon}, {lat}); ricorda: GeoJSON vuole lon, lat")
+    for n, im in enumerate(p.get("immagini", []), 1):
+        for c in ["url", "didascalia", "autore", "licenza", "fonte"]:
+            if not im.get(c):
+                errori.append(f"{pid}: immagine {n} senza '{c}'")
+        if not str(im.get("url", "")).startswith("https://"):
+            errori.append(f"{pid}: immagine {n} con URL non https")
+        aperta = any(str(im.get("licenza", "")).lower().startswith(l) for l in LICENZE_APERTE)
+        if not aperta and not im.get("id_liberatoria"):
+            errori.append(f"{pid}: immagine {n} con licenza '{im.get('licenza')}' non aperta e senza liberatoria")
+        if im.get("quando") not in (None, "prima", "dopo"):
+            errori.append(f"{pid}: immagine {n}, 'quando' deve essere prima o dopo")
     if isinstance(p.get("dossier"), str):
         path = ROOT / "luoghi" / p["dossier"]
         if not path.exists():

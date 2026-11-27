@@ -13,6 +13,8 @@ Il repository contiene materiali di natura diversa, con licenze diverse.
 
 Titoli, link e descrizioni brevi nei cataloghi e nei dossier rimandano a opere di terzi (articoli, libri, fotografie, video), che **restano dei rispettivi titolari** e non sono redistribuite in questo repository. Gli agenti riproducono materiali di terzi solo con una liberatoria scritta; in mancanza, citano la fonte e danno il link.
 
+Le fotografie mostrate nella mappa (`immagini` in `luoghi/luoghi.geojson`) non sono copiate qui: sono caricate dalla loro pagina originale su Wikimedia Commons, con autore e licenza aperta indicati in ogni didascalia (CC BY, CC BY-SA o pubblico dominio). Valgono le licenze dei singoli file; chi le riusa deve citare l'autore e, per le CC BY-SA, mantenere la stessa licenza.
+
 ## Marchi e loghi
 
 I loghi del Centro Einaudi, di Fondazione CRT, di Banca d'Italia e dei community partner sono marchi dei rispettivi titolari: non sono coperti dalle licenze di questo repository e si usano solo per indicare la partecipazione al progetto.

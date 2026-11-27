@@ -13,10 +13,28 @@ Geometria: `Point`, coordinate `[longitudine, latitudine]` in WGS84 (EPSG:4326).
 | `anno_chiave` | intero o null | `1980` | |
 | `testo_breve` | testo, max 60 parole | | Scritto per 18-35enni |
 | `fonti` | lista di `{id, titolo, url}` | | ID del catalogo (A01…, S01…, R01…) |
-| `immagini` | lista di `{url, didascalia, autore, anno, licenza, id_liberatoria}` | `[]` | Solo con liberatoria (strato G) |
+| `immagini` | lista di `{url, pagina, didascalia, autore, anno, licenza, fonte, id_liberatoria, quando, id_drive}` | | Vedi sotto |
 | `verificato` | testo | `sì`, `parziale`, `da verificare` | |
 | `coord_fonte` | testo | `OpenStreetMap Nominatim, 2/11/2026` | |
 | `dossier` | percorso o assente | `dossier/L04-marcia-40mila.json` | |
+
+### Immagini di un luogo
+
+Le foto non sono copiate nel repository: la mappa le carica dalla pagina originale (oggi Wikimedia Commons, miniatura da 500 px) e mostra sempre autore, anno, licenza e fonte.
+
+| Campo | Contenuto |
+|---|---|
+| `url` | Indirizzo https dell'immagine da mostrare |
+| `pagina` | Pagina originale con la licenza (es. la pagina del file su Commons) |
+| `didascalia` | Testo breve scritto dal progetto |
+| `autore`, `anno` | Come indicati dalla fonte; `n.d.` se mancano |
+| `licenza` | Es. `CC BY-SA 4.0`, `CC BY 3.0 it`, `Public domain` |
+| `fonte` | Es. `Wikimedia Commons` |
+| `id_liberatoria` | `null` se la licenza è aperta (CC BY, CC BY-SA, CC0, pubblico dominio); altrimenti l'ID della liberatoria nello strato G. Senza uno dei due la validazione fallisce |
+| `quando` | `prima` (foto storica o del sito dismesso) o `dopo` (foto del sito oggi) |
+| `id_drive` | ID della copia di lavoro nel Drive (`IMG001`…), dove c'è |
+
+Le foto dei Musei Civici di Torino (Fondazione Torino Musei) pubblicate su Europeana con CC BY 4.0 restano nel Drive, fuori dalla mappa pubblica, finché la Fondazione non conferma per iscritto la licenza.
 
 ## Dossier (`luoghi/dossier/<ID>-<slug>.json`)
 

@@ -11,3 +11,5 @@ Una riga per ogni decisione che cambia il progetto: chi la prende, quando e perc
 | 2/11/2026 | Agenti congelati dal 23/11 (release v1.0.0) per tutti e quattro gli incontri | Stessa condizione sperimentale per tutti | Proposta |
 | 2/11/2026 | Repository pubblico; dati dei partecipanti solo nello spazio riservato UniTo | GDPR, informativa; GitHub è un servizio extra-UE | Proposta |
 | 2/11/2026 | Seme e lista di randomizzazione pubblicati solo dopo il 3/12 | Occultamento dell'assegnazione | Proposta |
+| 27/11/2026 | Foto con licenza aperta (CC BY, CC BY-SA, pubblico dominio) ammesse sulla mappa senza liberatoria, collegate da Commons e sempre con autore e licenza; le altre solo con liberatoria | Arricchire la mappa senza redistribuire opere di terzi nel repository | Proposta |
+| 27/11/2026 | Foto dei Musei Civici (Europeana, CC BY 4.0) fuori dalla mappa pubblica fino a conferma scritta della Fondazione Torino Musei | Il regolamento della Fondazione chiede un'autorizzazione per le riproduzioni | Proposta |

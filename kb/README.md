@@ -6,6 +6,10 @@ Sei strati: **A** quadro, **B** territorio, **C** testimonianze, **D** attivazio
 |---|---|
 | `catalogo/catalogo_fonti.csv` | Catalogo principale: 73 voci A01–G11, priorità P1–P3, stato di verifica |
 | `catalogo/sitografia_fonti.csv` | Ricerca approfondita del 2/11/2026: siti S01–S20 e fonti R01–R30 |
+| `catalogo/nuove_fonti_2026-11-27.csv` | Ricerca approfondita del 27/11/2026: 88 nuove voci NA01–NG07, per strato A–G, con accesso, licenza, agenti e cartella del Drive |
+| `testi/dossier_torino_1899-2026_v1.md` | Dossier di ricerca: storia per periodi, dibattiti, mappatura delle fonti, lacune. Etichette V / V-s / DV per ogni dato |
+| `testi/linea_del_tempo_1899-2027.csv` | 102 date con fonte, stato di verifica e agenti |
+| `testi/cifre_contese.csv` | 22 cifre con valori diversi secondo la fonte, affiancati, e come usarle |
 | `schema/metadati.schema.json` | I 10 campi di metadati per ogni documento caricato |
 | `testi/` | Solo testi scritti dal progetto (schede, glossario, timeline) o con licenza aperta |
 
