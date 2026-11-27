@@ -34,6 +34,26 @@
   .pp .ver{margin-top:6px;font-size:12px;padding:3px 7px;border-radius:4px;display:inline-block;background:#f3efe6}
   .pp .ver.no{background:#fbe9e2;color:#8a2b1f}
   .pp .img{margin-top:8px;border:1px dashed var(--line);border-radius:6px;padding:10px;font-size:12px;color:var(--muted);text-align:center}
+  .pp .gal{margin-top:8px;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+  .pp .gal figure{margin:0;flex:0 0 230px;scroll-snap-align:start}
+  .pp .gal img{width:230px;height:150px;object-fit:cover;border-radius:6px;display:block;background:#ece7dd}
+  .pp .gal figcaption{font-size:11.5px;line-height:1.35;margin-top:4px}
+  .pp .gal .cr{color:var(--muted);font-size:10.5px}
+  .pp .gal .q{font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:#e2efe9}
+  .pp .gal .q.pr{background:#f8e1dc}
+  .pp .vid{margin-top:8px;font-size:12.5px;line-height:1.4;background:#f3efe6;border-radius:6px;padding:7px 9px}
+  .pp .vid a{color:var(--archivio);font-weight:500}
+  .pp .vid .cr{display:block;color:var(--muted);font-size:10.5px}
+  .pp .vid a{display:block;margin-top:2px}
+  #vbox{position:fixed;inset:0;background:rgba(20,18,15,.72);z-index:2000;display:flex;align-items:center;justify-content:center}
+  #vbox[hidden]{display:none}
+  #vbox .vcard{background:#fff;border-radius:10px;padding:12px;width:min(420px,94vw);max-height:94vh;display:flex;flex-direction:column}
+  #vbox .vhead{display:flex;justify-content:space-between;gap:10px;align-items:start;margin-bottom:8px}
+  #vbox .vt{font-weight:600;font-size:14px}
+  #vbox .vf{color:var(--muted);font-size:11.5px}
+  #vbox button{border:0;background:#eee;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:14px}
+  #vbox .vframe{flex:1;min-height:0}
+  #vbox iframe{width:100%;height:min(680px,80vh);border:0;border-radius:6px}
   .note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
   .lbl{background:none;border:none;box-shadow:none;font-size:11px;color:#4d6b8a;font-style:italic;font-weight:500}
   .lbl:before{display:none}
@@ -60,7 +80,7 @@
 <div class="app">
   <aside>
     <h1>Stor-IA di Torino</h1>
-    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione /*VERSIONE*/. 12 luoghi collegati agli agenti e alle fonti del catalogo.</p>
+    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione /*VERSIONE*/. <span id="nluoghi"></span> luoghi collegati agli agenti e alle fonti del catalogo.</p>
 
     <div class="grp">Agente</div>
     <div class="chips" id="agenti"></div>
@@ -71,7 +91,7 @@
     <div class="grp">Luoghi <span id="count"></span></div>
     <ul class="list" id="lista"></ul>
 
-    <p class="note">Mappa © OpenStreetMap contributors. Coordinate da OSM Nominatim (ODbL). Dati e codice: <a href="https://github.com/storia-torino/storia-torino">repository del progetto</a>. Le foto entrano solo con la liberatoria (strato G).</p>
+    <p class="note">Mappa © OpenStreetMap contributors. Coordinate da OSM Nominatim (ODbL). Dati e codice: <a href="https://github.com/storia-torino/storia-torino">repository del progetto</a>. Le foto sono collegate da Wikimedia Commons con autore e licenza aperta (CC BY, CC BY-SA, pubblico dominio); le altre entrano solo con la liberatoria (strato G).</p>
   </aside>
   <div id="map"></div>
 </div>
@@ -99,6 +119,53 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
+// Galleria «prima / dopo»: ogni foto porta autore, anno, licenza e link alla pagina originale.
+function galleria(p){
+  const im = p.immagini || [];
+  if (!im.length) return `<div class="img">Foto storica + foto di oggi<br>(da reperire o in attesa di liberatoria)</div>`;
+  const ord = [...im.filter(i => i.quando === "prima"), ...im.filter(i => i.quando !== "prima")];
+  return `<div class="gal">${ord.map(i => `<figure>
+      <a href="${esc(i.pagina || i.url)}" target="_blank" rel="noopener"><img src="${esc(i.url)}" alt="${esc(i.didascalia)}" loading="lazy"></a>
+      <figcaption>${i.quando ? `<span class="q ${i.quando === "prima" ? "pr" : ""}">${esc(i.quando)}</span> ` : ""}${esc(i.didascalia)}<br>
+        <span class="cr">${esc(i.autore)}${i.anno ? ", " + esc(i.anno) : ""} · ${esc(i.licenza)} · ${esc(i.fonte)}</span></figcaption>
+    </figure>`).join("")}</div>`;
+}
+
+// Video di terzi: incorporati solo con liberatoria (incorpora + id_liberatoria), altrimenti solo link.
+// L'iframe si carica al clic, così Instagram non viene contattato finché la persona non sceglie di guardare.
+function embedUrl(u){
+  const m = String(u).match(/instagram\.com\/(?:reel|p)\/([A-Za-z0-9_-]+)/);
+  return m ? `https://www.instagram.com/reel/${m[1]}/embed/` : null;
+}
+const VIDEO = [];
+function video(p){
+  const v = p.video || [];
+  if (!v.length) return "";
+  return `<div class="vid">${v.map((x, i) => {
+    const emb = x.incorpora && x.id_liberatoria ? embedUrl(x.url) : null;
+    let azione;
+    if (emb) { VIDEO.push({src: emb, titolo: x.titolo, fonte: x.fonte});
+      azione = `<a href="#" onclick="apriVideo(${VIDEO.length - 1});return false;">▶ ${esc(x.titolo)}</a>`; }
+    else azione = `<a href="${esc(x.url)}" target="_blank" rel="noopener">▶ ${esc(x.titolo)}</a>`;
+    return `${azione}<span class="cr">${esc(x.fonte)}${x.data ? " · " + esc(x.data) : ""}${emb ? " · pubblicato con autorizzazione" : ""}</span>`;
+  }).join("")}</div>`;
+}
+function apriVideo(i){
+  const v = VIDEO[i], box = document.getElementById("vbox");
+  box.querySelector(".vt").textContent = v.titolo;
+  box.querySelector(".vf").textContent = v.fonte + " · pubblicato con autorizzazione";
+  const fr = document.createElement("iframe");
+  fr.src = v.src; fr.title = v.titolo; fr.allowFullscreen = true; fr.setAttribute("scrolling", "no");
+  box.querySelector(".vframe").replaceChildren(fr);
+  box.hidden = false;
+}
+function chiudiVideo(){
+  const box = document.getElementById("vbox");
+  box.querySelector(".vframe").innerHTML = "";
+  box.hidden = true;
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") chiudiVideo(); });
+
 function popup(p){
   const src = p.fonti.map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.id)} · ${esc(f.titolo)}</a>`).join("<br>");
   const ok = p.verificato.startsWith("sì");
@@ -107,7 +174,8 @@ function popup(p){
     <h3>${esc(p.nome)}</h3>
     <div>${esc(p.testo_breve)}</div>
     <div class="tag" style="margin-top:8px">Ne parla: ${p.agenti.map(a => AG[a]).join(", ")}</div>
-    <div class="img">Foto storica + foto di oggi<br>(in attesa di liberatoria)</div>
+    ${galleria(p)}
+    ${video(p)}
     <div class="src"><b>Fonti</b><br>${src}</div>
     <div class="ver ${ok ? "" : "no"}">Verifica: ${esc(p.verificato)}</div>
     ${p.dossier ? `<button class="btn" type="button" onclick="openDossier('${p.id}')">Apri il dossier · ${p.dossier.materiali.length} materiali</button>` : ""}
@@ -152,7 +220,7 @@ function drawDossier(){
 const markers = LUOGHI.features.map(f => {
   const p = f.properties, [lon, lat] = f.geometry.coordinates;
   const m = L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:2, fillColor:COL[p.categoria], fillOpacity:.95})
-    .bindPopup(popup(p), {maxWidth:300});
+    .bindPopup(popup(p), {maxWidth:300, maxHeight:440, autoPanPaddingTopLeft:[20,60]});
   m.bindTooltip(p.nome, {direction:"top", offset:[0,-8]});
   return {m, p};
 });
@@ -167,7 +235,7 @@ function render(){
       m.addTo(map); n++;
       const li = document.createElement("li");
       li.innerHTML = `<span class="dot" style="background:${COL[p.categoria]}"></span>${esc(p.nome)}<span class="meta">${CAT_LBL[p.categoria]} · ${p.agenti.map(a => AG[a]).join(", ")}</span>`;
-      li.onclick = () => { map.flyTo(m.getLatLng(), 16, {duration:.8}); m.openPopup(); };
+      li.onclick = () => { map.closePopup(); map.once("moveend", () => m.openPopup()); map.flyTo(m.getLatLng(), 16, {duration:.8}); };
       ul.appendChild(li);
     } else map.removeLayer(m);
   });
@@ -189,6 +257,10 @@ function chips(el, items, get, set){
 chips("agenti", Object.entries(AG).map(([k, v]) => [k, v, null]), () => fAg, v => fAg = v);
 chips("categorie", Object.entries(CAT_LBL).map(([k, v]) => [k, v, COL[k]]), () => fCat, v => fCat = v);
 render();
+document.getElementById("nluoghi").textContent = LUOGHI.features.length;
 </script>
+<div id="vbox" hidden role="dialog" aria-modal="true" onclick="if(event.target===this)chiudiVideo()">
+  <div class="vcard"><div class="vhead"><div><div class="vt"></div><div class="vf"></div></div><button onclick="chiudiVideo()" aria-label="Chiudi">✕</button></div><div class="vframe"></div></div>
+</div>
 </body>
 </html>
