@@ -54,6 +54,8 @@ def scrivi_kml(fc):
             fonti = "<br/>".join(f'<a href="{s["url"]}">{e(s["id"])} · {e(s["titolo"])}</a>' for s in p["fonti"])
             d = (f'<p>{e(p["testo_breve"])}</p><p><i>Ne parla: {", ".join(AGENTI[a] for a in p["agenti"])}</i></p>'
                  f'<p><b>Fonti</b><br/>{fonti}</p><p><small>Verifica: {e(p["verificato"])} · {p["id"]}</small></p>')
+            for vd in p.get("video", []):
+                d += f'<p>▶ <a href="{e(vd["url"])}">{e(vd["titolo"])}</a> <small>({e(vd["fonte"])})</small></p>'
             for im in p.get("immagini", []):
                 d += (f'<p><img src="{e(im["url"])}" width="320"/><br/><small>{e(im.get("quando", ""))} · '
                       f'{e(im["didascalia"])} — {e(im["autore"])}, {e(im["licenza"])}, '

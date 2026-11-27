@@ -36,6 +36,10 @@ Le foto non sono copiate nel repository: la mappa le carica dalla pagina origina
 
 Le foto dei Musei Civici di Torino (Fondazione Torino Musei) pubblicate su Europeana con CC BY 4.0 restano nel Drive, fuori dalla mappa pubblica, finché la Fondazione non conferma per iscritto la licenza.
 
+### Video di un luogo (`video`, facoltativo)
+
+Lista di `{titolo, url, fonte, data, nota}`. La mappa mostra solo un link alla pagina originale (per esempio un reel Instagram): il video non viene incorporato né copiato. Per incorporarlo, mostrarlo in sala o farlo raccontare agli agenti serve il consenso scritto del titolare, da archiviare nello strato G.
+
 ## Dossier (`luoghi/dossier/<ID>-<slug>.json`)
 
 | Campo | Contenuto |

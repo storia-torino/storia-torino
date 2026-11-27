@@ -51,6 +51,10 @@ for f in fc["features"]:
             errori.append(f"{pid}: immagine {n} con licenza '{im.get('licenza')}' non aperta e senza liberatoria")
         if im.get("quando") not in (None, "prima", "dopo"):
             errori.append(f"{pid}: immagine {n}, 'quando' deve essere prima o dopo")
+    for n, vd in enumerate(p.get("video", []), 1):
+        for c in ["titolo", "url", "fonte"]:
+            if not vd.get(c):
+                errori.append(f"{pid}: video {n} senza '{c}'")
     if isinstance(p.get("dossier"), str):
         path = ROOT / "luoghi" / p["dossier"]
         if not path.exists():

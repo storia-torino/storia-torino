@@ -41,6 +41,9 @@
   .pp .gal .cr{color:var(--muted);font-size:10.5px}
   .pp .gal .q{font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:#e2efe9}
   .pp .gal .q.pr{background:#f8e1dc}
+  .pp .vid{margin-top:8px;font-size:12.5px;line-height:1.4;background:#f3efe6;border-radius:6px;padding:7px 9px}
+  .pp .vid a{color:var(--archivio);font-weight:500}
+  .pp .vid .cr{display:block;color:var(--muted);font-size:10.5px}
   .note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
   .lbl{background:none;border:none;box-shadow:none;font-size:11px;color:#4d6b8a;font-style:italic;font-weight:500}
   .lbl:before{display:none}
@@ -67,7 +70,7 @@
 <div class="app">
   <aside>
     <h1>Stor-IA di Torino</h1>
-    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione /*VERSIONE*/. 12 luoghi collegati agli agenti e alle fonti del catalogo.</p>
+    <p class="sub">Mappa dei luoghi (strato D della knowledge base), versione /*VERSIONE*/. <span id="nluoghi"></span> luoghi collegati agli agenti e alle fonti del catalogo.</p>
 
     <div class="grp">Agente</div>
     <div class="chips" id="agenti"></div>
@@ -118,6 +121,14 @@ function galleria(p){
     </figure>`).join("")}</div>`;
 }
 
+// Video di terzi: solo link alla pagina originale (niente incorporamento senza consenso).
+function video(p){
+  const v = p.video || [];
+  if (!v.length) return "";
+  return `<div class="vid">${v.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">▶ ${esc(x.titolo)}</a>
+    <span class="cr">${esc(x.fonte)}${x.data ? " · " + esc(x.data) : ""}</span>`).join("<br>")}</div>`;
+}
+
 function popup(p){
   const src = p.fonti.map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.id)} · ${esc(f.titolo)}</a>`).join("<br>");
   const ok = p.verificato.startsWith("sì");
@@ -127,6 +138,7 @@ function popup(p){
     <div>${esc(p.testo_breve)}</div>
     <div class="tag" style="margin-top:8px">Ne parla: ${p.agenti.map(a => AG[a]).join(", ")}</div>
     ${galleria(p)}
+    ${video(p)}
     <div class="src"><b>Fonti</b><br>${src}</div>
     <div class="ver ${ok ? "" : "no"}">Verifica: ${esc(p.verificato)}</div>
     ${p.dossier ? `<button class="btn" type="button" onclick="openDossier('${p.id}')">Apri il dossier · ${p.dossier.materiali.length} materiali</button>` : ""}
@@ -208,6 +220,7 @@ function chips(el, items, get, set){
 chips("agenti", Object.entries(AG).map(([k, v]) => [k, v, null]), () => fAg, v => fAg = v);
 chips("categorie", Object.entries(CAT_LBL).map(([k, v]) => [k, v, COL[k]]), () => fCat, v => fCat = v);
 render();
+document.getElementById("nluoghi").textContent = LUOGHI.features.length;
 </script>
 </body>
 </html>
