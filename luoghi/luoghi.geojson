@@ -529,7 +529,9 @@
       "url": "https://www.instagram.com/reel/De1FH6sCFQV/",
       "fonte": "Circoscrizione 8 di Torino (Instagram @circ8torino)",
       "data": "23/10/2026",
-      "nota": "Reel sulla fermata Dante della metropolitana: Centro Storico Fiat e sede de La Stampa. Solo link: per incorporarlo o usarlo negli agenti serve il consenso della Circoscrizione 8."
+      "nota": "Incorporato con l'autorizzazione della Circoscrizione 8 del 27/11/2026 (LIB-001): mappa pubblica ed evento del 14/12/2026.",
+      "id_liberatoria": "LIB-001",
+      "incorpora": true
      }
     ]
    }
@@ -1048,7 +1050,9 @@
       "url": "https://www.instagram.com/reel/DfmHEvPFHMV/",
       "fonte": "Circoscrizione 8 di Torino (Instagram @circ8torino)",
       "data": "11/11/2026",
-      "nota": "Reel su laboratori di cucito, ginnastica dolce e attività creative in via Taggia 25a. Solo link: per incorporarlo o usarlo negli agenti serve il consenso della Circoscrizione 8."
+      "nota": "Incorporato con l'autorizzazione della Circoscrizione 8 del 27/11/2026 (LIB-001): mappa pubblica ed evento del 14/12/2026.",
+      "id_liberatoria": "LIB-001",
+      "incorpora": true
      }
     ],
     "verificato": "parziale (date dalla scheda del Politecnico; usi attuali dal reel)",

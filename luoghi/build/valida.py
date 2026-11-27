@@ -20,6 +20,8 @@ OBBLIGATORI = ["id", "nome", "categoria", "agenti", "testo_breve", "fonti", "ver
 CATEGORIE = {"fabbrica", "riconvertita", "evento", "archivio"}
 BBOX = (7.50, 44.95, 7.85, 45.20)  # lon_min, lat_min, lon_max, lat_max (Torino e cintura)
 # Licenze che permettono di mostrare la foto sul sito senza liberatoria, con attribuzione
+LIBERATORIE = {r["ID"] for r in csv.DictReader(open(ROOT / "kb" / "liberatorie.csv", encoding="utf-8"))} \
+    if (ROOT / "kb" / "liberatorie.csv").exists() else set()
 LICENZE_APERTE = ("cc by ", "cc by-sa ", "cc0", "public domain", "pubblico dominio")
 
 fc = json.loads((ROOT / "luoghi" / "luoghi.geojson").read_text(encoding="utf-8"))
@@ -55,6 +57,8 @@ for f in fc["features"]:
         for c in ["titolo", "url", "fonte"]:
             if not vd.get(c):
                 errori.append(f"{pid}: video {n} senza '{c}'")
+        if vd.get("incorpora") and vd.get("id_liberatoria") not in LIBERATORIE:
+            errori.append(f"{pid}: video {n} incorporato senza liberatoria registrata in kb/liberatorie.csv")
     if isinstance(p.get("dossier"), str):
         path = ROOT / "luoghi" / p["dossier"]
         if not path.exists():

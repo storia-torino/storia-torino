@@ -10,6 +10,7 @@ Sei strati: **A** quadro, **B** territorio, **C** testimonianze, **D** attivazio
 | `testi/dossier_torino_1899-2026_v1.md` | Dossier di ricerca: storia per periodi, dibattiti, mappatura delle fonti, lacune. Etichette V / V-s / DV per ogni dato |
 | `testi/linea_del_tempo_1899-2027.csv` | 102 date con fonte, stato di verifica e agenti |
 | `testi/cifre_contese.csv` | 22 cifre con valori diversi secondo la fonte, affiancati, e come usarle |
+| `liberatorie.csv` | Registro pubblico delle liberatorie (solo metadati; le prove stanno nel Drive, 02.G) |
 | `schema/metadati.schema.json` | I 10 campi di metadati per ogni documento caricato |
 | `testi/` | Solo testi scritti dal progetto (schede, glossario, timeline) o con licenza aperta |
 

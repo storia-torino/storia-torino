@@ -38,7 +38,16 @@ Le foto dei Musei Civici di Torino (Fondazione Torino Musei) pubblicate su Europ
 
 ### Video di un luogo (`video`, facoltativo)
 
-Lista di `{titolo, url, fonte, data, nota}`. La mappa mostra solo un link alla pagina originale (per esempio un reel Instagram): il video non viene incorporato né copiato. Per incorporarlo, mostrarlo in sala o farlo raccontare agli agenti serve il consenso scritto del titolare, da archiviare nello strato G.
+Lista di `{titolo, url, fonte, data, nota, id_liberatoria, incorpora}`.
+
+- Senza liberatoria la mappa mostra solo un link alla pagina originale (per esempio un reel Instagram).
+- Con `incorpora: true` e un `id_liberatoria` registrato in [`kb/liberatorie.csv`](../kb/liberatorie.csv), il video si apre in una finestra dentro la mappa. L'incorporamento di Instagram si carica solo quando la persona clicca: prima del clic la pagina non contatta Instagram (nell'informativa del sito va indicato che, al clic, Instagram/Meta può usare i propri cookie).
+- `valida.py` blocca un video incorporato senza liberatoria registrata.
+- Ogni liberatoria vale per gli usi che elenca: per far raccontare il contenuto agli agenti, se non è incluso, serve un'estensione.
+
+### Registro delle liberatorie (`kb/liberatorie.csv`)
+
+Solo metadati pubblici: ID, titolare, materiale, usi autorizzati, data, canale, dove è archiviata la prova. Le e-mail e i messaggi originali stanno nel Drive (cartella 02.G, riservata) e non vanno nel repository.
 
 ## Dossier (`luoghi/dossier/<ID>-<slug>.json`)
 

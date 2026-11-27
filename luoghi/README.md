@@ -25,4 +25,4 @@ Coordinate: OpenStreetMap Nominatim, 2/11/2026 (© OpenStreetMap contributors, O
 | L06, L07 | Parco Dora, Cittadella Politecnico | parziale |
 | L10–L12 | Ex Incet, Docks Dora, Grattacielo Lancia | da verificare |
 | L13–L22 | Nuvola Lavazza, Officine Grandi Motori, ex Fergat – EUT3, Campus Einaudi, Environment Park, ex Manifattura Tabacchi, ex ThyssenKrupp, ex MOI – Villaggio olimpico, Fondazione Merz, ex Diatto (aggiunti il 27/11/2026 dall'inventario dei siti; coordinate Nominatim) | parziale o da verificare: quasi tutte le fonti sono secondarie |
-| L23 | Fabbrica del Chinino, Borgo Filadelfia (Circoscrizione 8), con link al reel della Circoscrizione 8; un secondo reel è collegato a L09 Centro Storico Fiat | parziale |
+| L23 | Fabbrica del Chinino, Borgo Filadelfia (Circoscrizione 8), con il reel della Circoscrizione 8 incorporato (liberatoria LIB-001 del 27/11/2026); un secondo reel è incorporato su L09 Centro Storico Fiat | parziale |
